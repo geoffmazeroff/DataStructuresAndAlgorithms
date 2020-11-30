@@ -40,6 +40,11 @@ def find_x_recursive(targetstr, index):
     if targetstr[index] == 'x': return index   # Found it!
     return find_x_recursive(targetstr, index+1)
 
+def count_unique_paths_recursive(rows, columns):
+    # Assumes start is upper left, finish is lower right.
+    if rows == 1 or columns == 1: return 1
+    return count_unique_paths_recursive(rows - 1, columns) + count_unique_paths_recursive(rows, columns - 1)
+
 print("Count of chars in [ab, c, def, ghij]...")
 print(count_chars_recursive(["ab", "c", "def", "ghij"]))
 
@@ -51,3 +56,6 @@ print(find_triangular_sum_recursive(7))
 
 print("Finding x in abcdefghijklmnopqrstuvwxyz...")
 print(find_x_recursive("abcdefghijklmnopqrstuvwxyz", 0))
+
+print("Number of unique paths from upper-left to lower-right in 7x3 grid...")
+print(count_unique_paths_recursive(3, 7))
