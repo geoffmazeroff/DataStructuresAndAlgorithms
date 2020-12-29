@@ -32,6 +32,26 @@ class Vertex:
 
         # Never ended up finding the target
         return None
+    
+    def breadth_first_search(self, starting_vertex, target):
+        if starting_vertex.value == target: return starting_vertex
+
+        q = queue.Queue()
+        visited_vertices = {}
+        visited_vertices[starting_vertex.value] = True
+        q.put(starting_vertex)
+
+        while not q.empty():
+            current_vertex = q.get()
+            
+            for v in current_vertex.adjacent_vertices:
+                
+                if v.value == target: return v
+
+                # Queue up any adjacent vertices we've not seen
+                if v.value not in visited_vertices:
+                    visited_vertices[v.value] = True
+                    q.put(v)
 
 def breadth_first_traversal(starting_vertex):
     q = queue.Queue()
@@ -177,6 +197,16 @@ else: print("Not found!")
 # Part 3 -- breadth-first traversal
 print("=== BFS traversal starting at 'Alice'...")
 breadth_first_traversal(alice)
+
+# Part 3a -- search for things with breadth-first search
+print("=== Finding 'Helen' BFS...")
+find_helen = alice.breadth_first_search(alice, "Helen")
+if find_helen: print("Found!")
+else: print("Not found!")
+print("=== Finding 'Geoff' BFS...")
+find_helen = alice.breadth_first_search(alice, "Geoff")
+if find_helen: print("Found!")
+else: print("Not found!")
 
 # Part 4 -- city routes setup
 print("=== Setting up routes...")
